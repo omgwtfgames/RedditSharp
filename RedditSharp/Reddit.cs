@@ -238,7 +238,12 @@ namespace RedditSharp
                 request = (HttpWebRequest)WebRequest.Create(string.Format("http://{0}{1}", RootDomain, url));
             else
                 request = (HttpWebRequest)WebRequest.Create(url);
+                
+            if (Cookies == null) {
+                Cookies = new CookieContainer();
+            }
             request.CookieContainer = Cookies;
+            
             if (Type.GetType("Mono.Runtime") != null)
             {
                 var cookieHeader = Cookies.GetCookieHeader(new Uri("http://reddit.com"));
